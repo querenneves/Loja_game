@@ -1,4 +1,4 @@
-package model;
+package com.generation.games.model;
 
 import java.util.List;
 

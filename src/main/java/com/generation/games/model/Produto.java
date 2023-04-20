@@ -1,4 +1,4 @@
-package model;
+package com.generation.games.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -37,7 +37,8 @@ public class Produto {
 	private int quantidade;
 
 	private LocalDate data;
-
+	
+    @NotNull
 	private BigDecimal preco;
 
 	private String foto;

@@ -1,4 +1,4 @@
-package controller;
+package com.generation.games.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,10 +18,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.generation.games.model.Produto;
+import com.generation.games.repository.CategoriaRepository;
+import com.generation.games.repository.ProdutoRepository;
+
 import jakarta.validation.Valid;
-import model.Produto;
-import repository.CategoriaRepository;
-import repository.ProdutoRepository;
 
 @RestController
 @RequestMapping("/produtos")
@@ -55,12 +56,12 @@ public class ProdutosController {
 	public ResponseEntity<List<Produto>> getByNome(@PathVariable String nome) {
 
 		return ResponseEntity.ok(produtoRepository.findAllByNomeContainingIgnoreCase(nome));
+
 	}
 
 	@PostMapping
 	public ResponseEntity<Produto> post(@Valid @RequestBody Produto produto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produto));
-
 	}
 
 	@PutMapping
@@ -71,7 +72,6 @@ public class ProdutosController {
 				return ResponseEntity.status(HttpStatus.OK).body(produtoRepository.save(produto));
 
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A categoria não existe!", null);
-
 		}
 
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
