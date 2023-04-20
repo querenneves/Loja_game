@@ -3,8 +3,10 @@ package com.generation.games.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,8 +14,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 @Entity /* gerar tabela banco de dados */
@@ -24,11 +26,14 @@ public class Produto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotBlank(message = "O atributo nome é obrigatório!")
+	@NotNull(message = "O atributo nome é obrigatório!")
 	@Size(max = 100, message = "O atributo nome deve terno máximo 100 caracteres")
 	private String nome;
 
-	@NotBlank(message = "O atributo console é obrigatório!")
+	@Size(max = 500)
+	private String descricao;
+
+	@NotNull(message = "O atributo console é obrigatório!")
 	@Size(max = 100, message = "O atributo console deve terno máximo 100 caracteres")
 	private String console;
 
@@ -36,13 +41,17 @@ public class Produto {
 	@Min(value = 1, message = "A quantidade deve ser maior que zero!")
 	private int quantidade;
 
-	private LocalDate data;
-	
-    @NotNull
+	@Column(name = "data_lancamento")
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private LocalDate dataLancamento;
+
+	@NotNull(message = "Preço é obrigatório!")
+	@Positive(message = "O preço deve ser maior do que zero!")
 	private BigDecimal preco;
 
 	private String foto;
 
+	@Column(columnDefinition = "integer default 0")
 	private int curtir;
 
 	@ManyToOne
@@ -66,6 +75,14 @@ public class Produto {
 		this.nome = nome;
 	}
 
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
 	public String getConsole() {
 		return console;
 	}
@@ -82,12 +99,12 @@ public class Produto {
 		this.quantidade = quantidade;
 	}
 
-	public LocalDate getData() {
-		return data;
+	public LocalDate getDataLancamento() {
+		return dataLancamento;
 	}
 
-	public void setData(LocalDate data) {
-		this.data = data;
+	public void setDataLancamento(LocalDate dataLancamento) {
+		this.dataLancamento = dataLancamento;
 	}
 
 	public BigDecimal getPreco() {

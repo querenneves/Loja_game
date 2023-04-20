@@ -1,5 +1,6 @@
 package com.generation.games.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -90,4 +91,19 @@ public class ProdutosController {
 
 		/* DELETE FROM tb_produto WHERE id = id */
 	}
+
+	// Consulta pelo preço maior do que o preço digitado emm ordem crescente
+
+	@GetMapping("/preco_maior/{preco}")
+	public ResponseEntity<List<Produto>> getPrecoMaiorQue(@PathVariable BigDecimal preco) {
+		return ResponseEntity.ok(produtoRepository.findAllByPrecoGreaterThanOrderByPreco(preco));
+	}
+
+	// Consulta pelo preço menor do que o preço digitado em ordem decrescente
+
+	@GetMapping("/preco_menor/{preco}")
+	public ResponseEntity<List<Produto>> getPrecoMenorQue(@PathVariable BigDecimal preco) {
+		return ResponseEntity.ok(produtoRepository.findAllByPrecoLessThanOrderByPrecoDesc(preco));
+	}
+
 }

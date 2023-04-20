@@ -1,5 +1,6 @@
 package com.generation.games.repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,5 +12,9 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
 	List<Produto> findAllByNomeContainingIgnoreCase(@Param("nome") String nome);
 	// SELECT * FROM tb_produto WHERE nome LIKE "%nome%";
+
+	public List<Produto> findAllByPrecoGreaterThanOrderByPreco(BigDecimal preco);
+
+	public List<Produto> findAllByPrecoLessThanOrderByPrecoDesc(BigDecimal preco);
 
 }
