@@ -29,7 +29,7 @@ public class SwaggerConfig {
 								.url("https://github.com/querenneves/Loja_game")))
 				.externalDocs(new ExternalDocumentation()
 						.description("GitHub")
-						.url("https://github.com/querenneves"));
+						.url("https://github.com/querenneves/Loja_game"));
 	}
 	
 	@Bean
