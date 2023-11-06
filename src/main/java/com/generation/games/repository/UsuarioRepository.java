@@ -19,7 +19,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	Optional<Usuario> cadastrarUsuario(@Valid Usuario usuario);
 
-	Optional<Usuario> autenticarUsuario(@Valid Optional<UsuarioLogin> usuarioLogin);
-
 	Optional<Usuario> atualizarUsuario(@Valid Usuario usuario);
+
 }

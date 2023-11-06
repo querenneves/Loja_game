@@ -56,12 +56,6 @@ public class UsuarioController {
 				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
 	}
 
-	@PostMapping("/logar")
-	public ResponseEntity<Usuario> loginUsuario(@Valid @RequestBody Optional<UsuarioLogin> usuarioLogin) {
-		return usuarioRepository.autenticarUsuario(usuarioLogin)
-				.map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
-				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
-	}
 
 	@PutMapping("/atualizar")
 	public ResponseEntity<Usuario> putUsuario(@Valid @RequestBody Usuario usuario) {
