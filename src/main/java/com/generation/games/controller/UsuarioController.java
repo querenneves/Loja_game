@@ -21,8 +21,6 @@ import org.springframework.web.server.ResponseStatusException;
 import com.generation.games.model.Usuario;
 import com.generation.games.model.UsuarioLogin;
 import com.generation.games.repository.UsuarioRepository;
-import com.generation.games.service.UsuarioService;
-
 import jakarta.validation.Valid;
 
 @RestController
@@ -32,9 +30,6 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-
-	@Autowired
-	private UsuarioService usuarioService;
 
 	@GetMapping
 	public ResponseEntity<List<Usuario>> getAll() {
@@ -56,21 +51,21 @@ public class UsuarioController {
 
 	@PostMapping("/cadastrar")
 	public ResponseEntity<Usuario> postUsuario(@Valid @RequestBody Usuario usuario) {
-		return usuarioService.cadastrarUsuario(usuario)
+		return usuarioRepository.cadastrarUsuario(usuario)
 				.map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
 	}
 
 	@PostMapping("/logar")
-	public ResponseEntity<UsuarioLogin> loginUsuario(@Valid @RequestBody Optional<UsuarioLogin> usuarioLogin) {
-		return usuarioService.autenticarUsuario(usuarioLogin)
+	public ResponseEntity<Usuario> loginUsuario(@Valid @RequestBody Optional<UsuarioLogin> usuarioLogin) {
+		return usuarioRepository.autenticarUsuario(usuarioLogin)
 				.map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
 	}
 
 	@PutMapping("/atualizar")
 	public ResponseEntity<Usuario> putUsuario(@Valid @RequestBody Usuario usuario) {
-		return usuarioService.atualizarUsuario(usuario)
+		return usuarioRepository.atualizarUsuario(usuario)
 				.map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
