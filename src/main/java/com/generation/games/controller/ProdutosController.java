@@ -23,7 +23,6 @@ import com.generation.games.model.Produto;
 import com.generation.games.repository.CategoriaRepository;
 import com.generation.games.repository.ProdutoRepository;
 
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/produtos")
@@ -61,12 +60,12 @@ public class ProdutosController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Produto> post(@Valid @RequestBody Produto produto) {
+	public ResponseEntity<Produto> post(@RequestBody Produto produto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produto));
 	}
 
 	@PutMapping
-	public ResponseEntity<Produto> put(@Valid @RequestBody Produto produto) {
+	public ResponseEntity<Produto> put(@RequestBody Produto produto) {
 		if (produtoRepository.existsById(produto.getId())) {
 
 			if (categoriaRepository.existsById(produto.getCategoria().getId()))

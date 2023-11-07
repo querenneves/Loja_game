@@ -21,7 +21,6 @@ import org.springframework.web.server.ResponseStatusException;
 import com.generation.games.model.Categoria;
 import com.generation.games.repository.CategoriaRepository;
 
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/categoria")
@@ -51,13 +50,13 @@ public class CategoriaController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Categoria> post(@Valid @RequestBody Categoria categoria) {
+	public ResponseEntity<Categoria> post(@RequestBody Categoria categoria) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(categoriaRepository.save(categoria));
 
 	}
 
 	@PutMapping
-	public ResponseEntity<Categoria> put(@Valid @RequestBody Categoria categoria) {
+	public ResponseEntity<Categoria> put(@RequestBody Categoria categoria) {
 		return categoriaRepository.findById(categoria.getId())
 				.map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(categoriaRepository.save(categoria)))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());

@@ -19,9 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.generation.games.model.Usuario;
-import com.generation.games.model.UsuarioLogin;
 import com.generation.games.repository.UsuarioRepository;
-import jakarta.validation.Valid;
+
 
 @RestController
 @RequestMapping("/usuarios")
@@ -50,7 +49,7 @@ public class UsuarioController {
 	}
 
 	@PostMapping("/cadastrar")
-	public ResponseEntity<Usuario> postUsuario(@Valid @RequestBody Usuario usuario) {
+	public ResponseEntity<Usuario> postUsuario(@RequestBody Usuario usuario) {
 		return usuarioRepository.cadastrarUsuario(usuario)
 				.map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
@@ -58,7 +57,7 @@ public class UsuarioController {
 
 
 	@PutMapping("/atualizar")
-	public ResponseEntity<Usuario> putUsuario(@Valid @RequestBody Usuario usuario) {
+	public ResponseEntity<Usuario> putUsuario(@RequestBody Usuario usuario) {
 		return usuarioRepository.atualizarUsuario(usuario)
 				.map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
