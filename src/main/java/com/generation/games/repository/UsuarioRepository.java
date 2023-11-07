@@ -5,18 +5,13 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
-
 import com.generation.games.model.Usuario;
-
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
-	Optional<Usuario> findByUsuario(String usuario);
-	
-	List<Usuario> findAllByNomeContainingIgnoreCase(@Param("nome")String nome);
+    Optional<Usuario> findByUsuario(Long id);
+    
+    List<Usuario> findAllByNomeContainingIgnoreCase(@Param("nome") String nome);
 
-	Optional<Usuario> cadastrarUsuario(Usuario usuario);
-
-	Optional<Usuario> atualizarUsuario(Usuario usuario);
-
+    Usuario save(Usuario usuario);
 }
